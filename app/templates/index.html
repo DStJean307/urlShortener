@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <title>Url Shortener</title>
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+        <script>
+            $(document).ready(function(){
+                //Function for shortening url
+                $("#testFunc").click(function(){
+                    input = $("#input").val();
+                    //Display hidden div
+                    $("#outputDiv").css("display", "block");
+                    //Put variable data into text box
+                    $('#output').val(input);
+                });
+            });
+            function copy_to_clipboard() {
+                // Find output text box
+                var copy_text = document.getElementById("output");
+
+                // Select text
+                copy_text.select();
+                // Mobile device parameters
+                copy_text.setSelectionRange(0, 99999);
+
+                // Copy text inside text field
+                navigator.clipboard.writeText(copy_text.value);
+            }
+
+            function refresh() {
+                document.getElementById('outputDiv').style.display = "none";
+                document.getElementById("input") = "";
+            }
+
+            function testFunc() {
+                console.log("made it here");
+                document.getElementById("output") = document.getElementById("input");
+                document.getElementById('outputDiv').style.display = "block";
+            }
+
+        </script>
+    </head>
+    <body>
+        <h1>Url Shortener</h1>
+        <form id="mainForm">
+            <input type="text" placeholder="Put Your Url Here" id="input">
+            <input type="submit" value="Shorten Url">
+            <button onClick="testFunc" id="testFunc" type="button">Test</button>
+        </form>
+        <div style="display: none" id="outputDiv">
+            <input type="text" id="output" readonly>
+            <button onclick="copy_to_clipboard()" id="copy">Copy Url</button>
+            <div style="text-align: left;"><button>Shorten New Url</button id="testButton"></div>
+        </div>
+    </body>
+    <footer></footer>
+</html>
